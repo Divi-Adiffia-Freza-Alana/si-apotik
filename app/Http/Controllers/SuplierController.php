@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Barang;
-use App\Models\Transaksi;
-use App\Models\Transaksi_detail;
+use App\Models\Suplier;
 use Illuminate\Http\RedirectResponse;
 
 
@@ -16,7 +14,7 @@ use DataTables;
 use Session;
 use Validator;
 
-class TransaksiController extends Controller
+class SuplierController extends Controller
 {
     //
 
@@ -28,9 +26,9 @@ class TransaksiController extends Controller
     //exit();
         if ($request->ajax()) {
            // $kurir = Kurir::with('');
-           //$barang = Barang::query();
-            $transaksi = Transaksi::with(['barang']);
-            return  DataTables::of($transaksi)
+           $suplier = Suplier::query();
+            //$suplier = Suplier::with('category');
+            return  DataTables::of($suplier)
                     ->addIndexColumn()
                  /* ->editColumn('category.nama', function($data){
                         return $data->category[0]->nama;
@@ -38,99 +36,38 @@ class TransaksiController extends Controller
                     /*->editColumn('tgl_lahir', function($data){ 
                         return dateformat($data->tgl_lahir);
                     })*/
-                    ->addColumn('detail', function($row){
-                        $btn = '<a class="btn bg-blue" href="/transaksi-detail/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-eye"></i> </a>';
-                         return $btn;
-                 })
                     ->addColumn('action', function($row){
-                           $btn ='<a class="btn btn-danger" href="/transaksi-delete/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-trash"></i></a>';
+                           $btn = '<a class="btn btn-primary" href="/suplier-edit/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-pen-to-square"></i> </a>
+                                   <a class="btn btn-danger" href="/suplier-delete/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-trash"></i></a>';
                             return $btn;
                     })
-                    ->rawColumns(['action','detail'])
+                    ->rawColumns(['action'])
                     ->make(true);
         }
-        return view('transaksi.transaksi');
-    }
-
-
-
-    public function choose(){
-        
-        //$transaksidata = Transaksi::with(['barang'])->get()->find($id);
-        $barang = Barang::all();
-       // $kandangdata = Kandang::with('keeperKandang')->get()->find($id);
-        //dd($keeperdata);
-
-        //var_dump($barang);
-        //exit();
-        return view('transaksi.barang_cart',['data' =>$barang ]);
+        return view('suplier.suplier');
 
     }
-
 
     public function add(){
 
-        return view('transaksi.add_menus');
+        return view('suplier.add_suplier');
 
     }
 
 
     public function edit($id){
         
-        $transaksidata = Transaksi::with(['barang'])->get()->find($id);
+        $suplierdata = Suplier::query()->get()->find($id);
        // $kandangdata = Kandang::with('keeperKandang')->get()->find($id);
         //dd($keeperdata);
-        return view('barang.add_barang',['data' =>$barangdata]);
+        return view('suplier.add_suplier',['data' =>$suplierdata]);
 
-    }
-
-    public function addToCart($id)
-    {
-        $barangall = Barang::all();
-        $barang = Barang::find($id);
-
-        $userId = auth()->user()->id; // or any string represents user identifier
-        //var_dump($userId);
-        //exit();
-
-        //DELETE TOTAL
-       /* $items = \Cart::getContent();
-
-        foreach($items as $row) {
-
-           // echo $row->id;
-            \Cart::remove($row->id); 
-        }*/
-
-       // Cart::remove(456);
-        \Cart::add(array(
-            'id' => $barang->id, // inique row ID
-            'name' => $barang->nama,
-            'price' =>  $barang->harga,
-            'quantity' =>  1
-        ));
-
-        return view('transaksi.barang_cart',['data' =>$barangall ]);
-
-        
-    }
-
-
-    public function cart()
-    {
-        $items = \Cart::getContent();
-       // var_dump($items);
-        //dexit();
-
-        
-        return view('transaksi.cart',['data' => $items]);
     }
 
     
 
    public function store(Request $request): RedirectResponse
 {   
-
    /* $validator = Validator::make($request->all(), [
         'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
     ]);
@@ -140,36 +77,24 @@ class TransaksiController extends Controller
         Session::flash('message', $validator->messages()->first());
         return redirect()->back()->withInput();
     }*/ /*else {*/
+   
 
-        $items = \Cart::getContent();
         if ($request->id == NULL || $request->id == "") {
-            $transaksi = Transaksi::create([
+            /*$namefile = '';
+            if($request->file('foto')) {
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $namefile = $request->nama . '-' . now()->timestamp . '.' . $extension;
+                $request->file('foto')->move('foto', $namefile);
+            }*/
+            $suplier = Suplier::create([
                 'id' => Str::uuid(),
-                'tgl' =>date("Y-m-d", strtotime($request->tgl_transaksi)),
-                'total' => \Cart::getTotal(),
-                'keterangan' => '',
+                //'id_category' => $request->category,
+                'nama' => $request->nama,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+                //'foto' => $namefile,
+                //'foto_url' => urlimage($namefile),
             ]);
-
-        foreach ($items as $row) {
-            Transaksi_detail::create([  
-                'id' => Str::uuid(),
-                'id_transaksi' => $transaksi->id, 
-                'id_barang' => $row->id,
-                'qty' => $row->quantity,
-                'harga' => $row->price,
-                'subtotal' => $row->price * $row->quantity,
-            ]);
-        }
-        //delete dataa
-        foreach($items as $row) {
-
-           // echo $row->id;
-            \Cart::remove($row->id); 
-        }
-
-
-
-
 
             /*if ($request->file('foto')) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
@@ -187,21 +112,30 @@ class TransaksiController extends Controller
                 Session::flash('message', 'Tambah Data Menu Berhasil');
             }*/
             Session::flash('status', 'success');
-            Session::flash('message', 'Data Transaksi Berhasil');
+            Session::flash('message', 'Tambah Data Suplier Berhasil');
         }
     
      else{
-        //dd($namefile);
-         Barang::updateOrCreate(
+        //dd($request->all());
+
+      
+      /*  if($request->file('foto')) {
+            $extension = $request->file('foto')->getClientOriginalExtension();
+            $namefile = $request->nama . '-' . now()->timestamp . '.' . $extension;
+            $request->file('foto')->move('foto', $namefile);
+        }
+        else{
+            $namefile=$request->fotolabel;
+        }*/
+
+        Suplier::updateOrCreate(
              ['id' => $request->id],
              [
-                'id_category' => $request->category,
                 'nama' => $request->nama,
-                'harga' => $request->harga,
-                'keterangan' => $request->keterangan,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
              ]
              );
- 
            /*  $namefile='';
              if ($request->file('foto')){
              $extension = $request->file('foto')->getClientOriginalExtension();
@@ -236,7 +170,7 @@ class TransaksiController extends Controller
              
  
              Session::flash('status', 'success');
-             Session::flash('message', 'Edit Data Barang Berhasil');
+             Session::flash('message', 'Edit Data Suplier Berhasil');
              
          }
             
@@ -248,7 +182,7 @@ class TransaksiController extends Controller
 
           
 
-        return redirect('/transaksi');
+        return redirect('/suplier');
     }
 
     public function delete($id){
@@ -263,13 +197,29 @@ class TransaksiController extends Controller
 
         // return redirect('/keeper');
 
-    $transaksi = Transaksi::findOrFail($id);
-    $transaksi->delete();
+    $suplier = Suplier::findOrFail($id);
+    $suplier->delete();
 
     Session::flash('status', 'success');
-    Session::flash('message', 'Delete Data Transaksi Berhasil');
+    Session::flash('message', 'Delete Data Suplier Berhasil');
 
-    return redirect('/transaksi');
+    return redirect('/suplier');
 }
     
+
+//Select 
+
+public function selectSuplier (Request $request)
+{
+    $suplier = [];
+    if($request->has('q')){
+        $search = $request->q;
+        $suplier =Suplier::select("id", "nama")
+                ->where('nama', 'LIKE', "%$search%")
+                ->get();
+    }else{ 
+        $suplier =Suplier::select("id", "nama")->orderBy('id')->get(10);
+    }
+    return response()->json($suplier);
+}
 }

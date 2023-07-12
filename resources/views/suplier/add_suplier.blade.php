@@ -32,11 +32,11 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header bg-blue">
-                <h3 class="card-title">Form Barang</h3>
+                <h3 class="card-title">Form Suplier</h3>
               </div>
               <!-- /.card-header -->
              
-              <form action="/barangstore" method="post" enctype="multipart/form-data">
+              <form action="/suplierstore" method="post" enctype="multipart/form-data">
               @csrf
                 <div class="card-body">
                   <div class="row">
@@ -64,37 +64,23 @@
                       <br>
                     <input type="hidden" name="id" id="id" value="<?php echo (isset($data->id)?$data->id:""); ?>">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Nama Barang </label>
-                      <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Barang" value="<?php echo (isset($data->nama)?$data->nama:""); ?>" required>
+                      <label for="exampleInputEmail1">Nama Suplier </label>
+                      <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama Suplier" value="<?php echo (isset($data->nama)?$data->nama:""); ?>" required>
                     </div>
                     <div class="form-group">
-                      <label>Category</label>
-                      <select id="category" name="category" class="form-control selectcategory" style="width: 100%;">
-                      <option value=<?php echo (isset($data->category[0]->id)?$data->category[0]->id:"")?> selected><?php echo (isset($data->category[0]->nama)?$data->category[0]->nama:"")?></option>
-                      </select>
+                      <label for="exampleInputEmail1">No. Telp </label>
+                      <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="No. Hp" value="<?php echo (isset($data->no_telp)?$data->no_telp:""); ?>" required>
                     </div>
-                    <div class="form-group">
-                      <label>Suplier</label>
-                      <select id="suplier" name="suplier" class="form-control selectsuplier" style="width: 100%;">
-                      <option value=<?php echo (isset($data->category[0]->id)?$data->category[0]->id:"")?> selected><?php echo (isset($data->category[0]->nama)?$data->category[0]->nama:"")?></option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Harga</label>
-                      <input type="text" class="form-control" name="harga" id="harga" placeholder="harga" value="<?php echo (isset($data->harga)?$data->harga:""); ?>" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Harga Beli</label>
-                      <input type="text" class="form-control" name="hargabeli" id="hargabeli" placeholder="harga" value="<?php echo (isset($data->hargabeli)?$data->hargabeli:""); ?>" required>
-                    </div>
-             
+         
+                  
+                   
   
                   </div>
                   <div class="col-md-12">
                     <!-- textarea -->
                     <div class="form-group">
-                      <label>Keterangan </label>
-                      <textarea class="form-control" rows="3" placeholder="Enter ..."  id="keterangan" name="keterangan"><?php echo (isset($data->keterangan)?$data->keterangan:""); ?></textarea>
+                      <label>Alamat </label>
+                      <textarea class="form-control" rows="3" placeholder="Enter ..."  id="alamat" name="alamat"><?php echo (isset($data->alamat)?$data->alamat:""); ?></textarea>
                     </div>
                 </div>
                   </div>
@@ -102,7 +88,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn bg-green">Submit</button>
+                  <button type="submit" class="btn bg-blue">Submit</button>
                 </div>
               </form>
             </div>

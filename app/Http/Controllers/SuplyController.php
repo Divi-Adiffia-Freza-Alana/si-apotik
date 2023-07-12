@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\Transaksi;
 use App\Models\Transaksi_detail;
+use App\Models\Suply;
+use App\Models\Suply_detail;
 use Illuminate\Http\RedirectResponse;
 
 
@@ -16,7 +18,7 @@ use DataTables;
 use Session;
 use Validator;
 
-class TransaksiController extends Controller
+class SuplyController extends Controller
 {
     //
 
@@ -29,8 +31,8 @@ class TransaksiController extends Controller
         if ($request->ajax()) {
            // $kurir = Kurir::with('');
            //$barang = Barang::query();
-            $transaksi = Transaksi::with(['barang']);
-            return  DataTables::of($transaksi)
+            $suply = Suply::with(['barang']);
+            return  DataTables::of($suply)
                     ->addIndexColumn()
                  /* ->editColumn('category.nama', function($data){
                         return $data->category[0]->nama;
@@ -39,17 +41,17 @@ class TransaksiController extends Controller
                         return dateformat($data->tgl_lahir);
                     })*/
                     ->addColumn('detail', function($row){
-                        $btn = '<a class="btn bg-blue" href="/transaksi-detail/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-eye"></i> </a>';
+                        $btn = '<a class="btn bg-blue" href="/suply-detail/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-eye"></i> </a>';
                          return $btn;
                  })
                     ->addColumn('action', function($row){
-                           $btn ='<a class="btn btn-danger" href="/transaksi-delete/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-trash"></i></a>';
+                           $btn ='<a class="btn btn-danger" href="/suply-delete/'.(isset($row->id)?$row->id:"").'" style="color:#ffff;display:inline-block;" ><i class="fa-solid fa-trash"></i></a>';
                             return $btn;
                     })
                     ->rawColumns(['action','detail'])
                     ->make(true);
         }
-        return view('transaksi.transaksi');
+        return view('suply.suply');
     }
 
 
@@ -63,24 +65,24 @@ class TransaksiController extends Controller
 
         //var_dump($barang);
         //exit();
-        return view('transaksi.barang_cart',['data' =>$barang ]);
+        return view('suply.barang_cart',['data' =>$barang ]);
 
     }
 
 
     public function add(){
 
-        return view('transaksi.add_menus');
+        return view('suply.add_menus');
 
     }
 
 
     public function edit($id){
         
-        $transaksidata = Transaksi::with(['barang'])->get()->find($id);
+        $suplydata = Suply::with(['barang'])->get()->find($id);
        // $kandangdata = Kandang::with('keeperKandang')->get()->find($id);
         //dd($keeperdata);
-        return view('barang.add_barang',['data' =>$barangdata]);
+        return view('suply.add_barang',['data' =>$barangdata]);
 
     }
 
@@ -106,11 +108,11 @@ class TransaksiController extends Controller
         \Cart::add(array(
             'id' => $barang->id, // inique row ID
             'name' => $barang->nama,
-            'price' =>  $barang->harga,
+            'price' =>  $barang->hargabeli,
             'quantity' =>  1
         ));
 
-        return view('transaksi.barang_cart',['data' =>$barangall ]);
+        return view('suply.barang_cart',['data' =>$barangall ]);
 
         
     }
@@ -123,7 +125,7 @@ class TransaksiController extends Controller
         //dexit();
 
         
-        return view('transaksi.cart',['data' => $items]);
+        return view('suply.cart',['data' => $items]);
     }
 
     
@@ -143,7 +145,7 @@ class TransaksiController extends Controller
 
         $items = \Cart::getContent();
         if ($request->id == NULL || $request->id == "") {
-            $transaksi = Transaksi::create([
+            $suply = Suply::create([
                 'id' => Str::uuid(),
                 'tgl' =>date("Y-m-d", strtotime($request->tgl_transaksi)),
                 'total' => \Cart::getTotal(),
@@ -151,16 +153,15 @@ class TransaksiController extends Controller
             ]);
 
         foreach ($items as $row) {
-            Transaksi_detail::create([  
+            Suply_detail::create([ 
                 'id' => Str::uuid(),
-                'id_transaksi' => $transaksi->id, 
+                'id_suply' => $transaksi->id,
                 'id_barang' => $row->id,
                 'qty' => $row->quantity,
                 'harga' => $row->price,
                 'subtotal' => $row->price * $row->quantity,
             ]);
         }
-        //delete dataa
         foreach($items as $row) {
 
            // echo $row->id;
@@ -187,7 +188,7 @@ class TransaksiController extends Controller
                 Session::flash('message', 'Tambah Data Menu Berhasil');
             }*/
             Session::flash('status', 'success');
-            Session::flash('message', 'Data Transaksi Berhasil');
+            Session::flash('message', 'Data Transaksi Supply Berhasil');
         }
     
      else{
@@ -248,7 +249,7 @@ class TransaksiController extends Controller
 
           
 
-        return redirect('/transaksi');
+        return redirect('/suply');
     }
 
     public function delete($id){
@@ -263,13 +264,13 @@ class TransaksiController extends Controller
 
         // return redirect('/keeper');
 
-    $transaksi = Transaksi::findOrFail($id);
-    $transaksi->delete();
+    $suply = Suply::findOrFail($id);
+    $suply->delete();
 
     Session::flash('status', 'success');
-    Session::flash('message', 'Delete Data Transaksi Berhasil');
+    Session::flash('message', 'Delete Data Transaksi Suply Berhasil');
 
-    return redirect('/transaksi');
+    return redirect('/suply');
 }
     
 }

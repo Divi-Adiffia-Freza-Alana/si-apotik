@@ -27,7 +27,7 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-10">
-                    <h3 class="card-title">DataTable Users</h3> 
+                    <h3 class="card-title">DataTable Users</h3>  
                   </div>
                   <div class="col-2">
                       <a class="btn btn-block bg-blue" href="/users-add" style="color:#ffff;float:right;" >Add New +</a>

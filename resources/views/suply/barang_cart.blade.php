@@ -33,11 +33,11 @@
             <div class="card card-primary">
               <div class="card-header bg-blue">
                 <h3 class="card-title">Add to Cart</h3>
-               <div style="float:right;"><a href="/cart"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span></a></div>
+               <div style="float:right;"><a href="/cartsuply"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span></a></div>
               </div>
               <!-- /.card-header -->
              
-              <form action="/barangstore" method="post" enctype="multipart/form-data">
+              <form action="" method="post" enctype="multipart/form-data">
               @csrf
                 <div class="card-body">
                   <div class="row">
@@ -47,7 +47,7 @@
                         <img class="card-img-top" src="{{$d->foto_url}}"  alt="Card image cap" width="100px" height="200px" style="display:block;margin:10px auto;">
                         <div class="card-body">
                           <h5 class="card-title">{{$d->nama}}</h5>
-                          <p class="card-text">Rp. {{$d->harga}}.</p>
+                          <p class="card-text">Rp. {{$d->hargabeli}}.</p>
                           <a style="display:block;margin: auto;" href="/add-to-cart/{{$d->id}}" class="btn btn-primary">Add</a>
                         </div>
                       </div>

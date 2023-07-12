@@ -12,7 +12,7 @@ class Barang extends Model
 
     protected $table = 'barang';
     
-    protected $fillable = ['id','id_category','nama','harga','keterangan','foto','foto_url'];
+    protected $fillable = ['id','id_category','id_suplier','nama','harga','hargabeli','keterangan','foto','foto_url'];
 
     public function getIncrementing(){
         return false;
@@ -24,6 +24,11 @@ class Barang extends Model
     public function category()
     {
         return $this->hasMany(Category::Class, 'id', 'id_category');
+    }
+
+    public function suplier()
+    {
+        return $this->hasMany(Suplier::Class, 'id', 'id_suplier');
     }
 
     public function transaksi()

@@ -31,9 +31,8 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-              <div class="card-header bg-blue">
-                <h3 class="card-title">Add to Cart</h3>
-               <div style="float:right;"><a href="/cart"> <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span></a></div>
+              <div class="card-header bg-green">
+                <h3 class="card-title">Form Transaksi</h3>
               </div>
               <!-- /.card-header -->
              
@@ -41,29 +40,22 @@
               @csrf
                 <div class="card-body">
                   <div class="row">
-                    @foreach ($data as $d)
-                    <div class="col-4">
-                      <div class="card" style="width: 18rem;display:block;margin: auto;">
-                        <img class="card-img-top" src="{{$d->foto_url}}"  alt="Card image cap" width="100px" height="200px" style="display:block;margin:10px auto;">
-                        <div class="card-body">
-                          <h5 class="card-title">{{$d->nama}}</h5>
-                          <p class="card-text">Rp. {{$d->harga}}.</p>
-                          <a style="display:block;margin: auto;" href="/add-to-cart/{{$d->id}}" class="btn btn-primary">Add</a>
-                        </div>
-                      </div>
-                    </div>
-                      
-                    @endforeach
-                    
-                  </div>
 
+
+                  <div class="col-md-12">
+                    <!-- textarea -->
+                    <div class="form-group">
+                      <label>Keterangan </label>
+                      <textarea class="form-control" rows="3" placeholder="Enter ..."  id="keterangan" name="keterangan"><?php echo (isset($data->keterangan)?$data->keterangan:""); ?></textarea>
+                    </div>
                 </div>
+              </div>
 
                 <!-- /.card-body -->
 
-                <!--<div class="card-footer">
+                <div class="card-footer">
                   <button type="submit" class="btn bg-green">Submit</button>
-                </div>-->
+                </div>
               </form>
             </div>
             <!-- /.card -->

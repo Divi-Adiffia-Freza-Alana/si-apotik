@@ -35,23 +35,21 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-10">
-                    <h3 class="card-title">DataTable Transaksi</h3> 
+                    <h3 class="card-title">DataTable Suplier</h3> 
                   </div>
                   <div class="col-2">
-                      <a class="btn btn-block bg-blue" href="/chooseproduct" style="color:#ffff;float:right;" >Add New +</a>
+                      <a class="btn btn-block bg-blue" href="/suplier-add" style="color:#ffff;float:right;" >Add New +</a>
                   </div>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="data-tables-transaksi" class="table table-bordered table-striped" style="width:100%!important">
+                <table id="data-tables-suplier" class="table table-bordered table-striped" style="width:100%!important">
                   <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Tanggal</th>
-                    <th>Total</th>
-                    <th>Keterangan</th>
-                    <th>Detail</th>
+                    <th>Nama</th>
+                    <th>No.Telp</th>
+                    <th>Alamat</th>
                     <th>Action</th>
                   </tr>
                   </thead>

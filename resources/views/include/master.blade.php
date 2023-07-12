@@ -175,9 +175,57 @@
       serverSide: true,
       ajax: "{{ route('transaksi.index') }}",
       columns: [
+        {data: 'id', name: 'id'},
+        {data: 'tgl', name: 'tgl'},
           {data: 'total', name: 'total'},
          // {data: 'category.nama', name: 'category.nama'},
           {data: 'keterangan', name: 'keterangan'},
+                   
+          {data: 'detail', name: 'detail', orderable: false, searchable: false},
+         
+          {data: 'action', name: 'action', orderable: false, searchable: false},
+          
+      ]
+
+
+  });
+
+
+  var tablesuply = $('#data-tables-suply').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: "{{ route('suply.index') }}",
+      columns: [
+        {data: 'id', name: 'id'},
+        {data: 'tgl', name: 'tgl'},
+          {data: 'total', name: 'total'},
+         // {data: 'category.nama', name: 'category.nama'},
+          {data: 'keterangan', name: 'keterangan'},
+                   
+          {data: 'detail', name: 'detail', orderable: false, searchable: false},
+         
+          {data: 'action', name: 'action', orderable: false, searchable: false},
+          
+      ]
+
+
+  });
+
+
+  
+  var tablesuplier = $('#data-tables-suplier').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: "{{ route('suplier.index') }}",
+      columns: [
+        //{data: 'id', name: 'id'},
+        {data: 'nama', name: 'nama'},
+        {data: 'no_hp', name: 'no_hp'},
+          {data: 'alamat', name: 'alamat'},
+         // {data: 'category.nama', name: 'category.nama'},
+        
+                   
+         
           {data: 'action', name: 'action', orderable: false, searchable: false},
           
       ]

@@ -89,8 +89,10 @@ class BarangController extends Controller
             $barang = Barang::create([
                 'id' => Str::uuid(),
                 'id_category' => $request->category,
+                'id_suplier' => $request->suplier,
                 'nama' => $request->nama,
                 'harga' => $request->harga,
+                'hargabeli' => $request->hargabeli,
                 'keterangan' => $request->keterangan,
                 'foto' => $namefile,
                 'foto_url' => urlimage($namefile),
@@ -132,8 +134,10 @@ class BarangController extends Controller
              ['id' => $request->id],
              [
                 'id_category' => $request->category,
+                'id_suplier' => $request->suplier,
                 'nama' => $request->nama,
                 'harga' => $request->harga,
+                'hargabeli' => $request->hargabeli,
                 'keterangan' => $request->keterangan,
                 'foto' => $namefile,
                 'foto_url' => urlimage($namefile),

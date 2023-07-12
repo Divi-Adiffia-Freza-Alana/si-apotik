@@ -35,16 +35,16 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-10">
-                    <h3 class="card-title">DataTable Transaksi</h3> 
+                    <h3 class="card-title">DataTable Transaksi Suply</h3> 
                   </div>
                   <div class="col-2">
-                      <a class="btn btn-block bg-blue" href="/chooseproduct" style="color:#ffff;float:right;" >Add New +</a>
+                      <a class="btn btn-block bg-blue" href="/chooseproductsuply" style="color:#ffff;float:right;" >Add New +</a>
                   </div>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="data-tables-transaksi" class="table table-bordered table-striped" style="width:100%!important">
+                <table id="data-tables-suply" class="table table-bordered table-striped" style="width:100%!important">
                   <thead>
                   <tr>
                     <th>Id</th>

@@ -9,6 +9,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\SuplyController;
+use App\Http\Controllers\SuplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +65,27 @@ Route::any('/transaksi-edit/{id}', [TransaksiController::class, 'edit']);
 Route::any('/transaksi-delete/{id}', [TransaksiController::class, 'delete']);
 
 Route::any('/chooseproduct', [TransaksiController::class, 'choose']);
+Route::any('/cart', [TransaksiController::class, 'cart'])->name('transaksi.cart');
+Route::any('/add-to-cart/{id}', [TransaksiController::class, 'addToCart']);
 
 
 
+//Route Suply
+Route::get('/suply', [SuplyController::class, 'index'])->name('suply.index');
+Route::any('/suplystore', [SuplyController::class, 'store']);
+Route::get('/suply-add', [SuplyController::class, 'add']);
+Route::any('/suply-edit/{id}', [SuplyController::class, 'edit']);
+Route::any('/suply-delete/{id}', [SuplyController::class, 'delete']);
+
+Route::any('/chooseproductsuply', [SuplyController::class, 'choose']);
+Route::any('/cartsuply', [SuplyController::class, 'cart'])->name('suply.cart');
+Route::any('/add-to-cartsuply/{id}', [SuplyController::class, 'addToCart']);
+
+
+// Route suplier
+Route::get('/suplier', [SuplierController::class, 'index'])->name('suplier.index');
+Route::any('/suplierstore', [SuplierController::class, 'store']);
+Route::get('/suplier-add', [SuplierController::class, 'add']);
+Route::any('/suplier-edit/{id}', [SuplierController::class, 'edit']);
+Route::any('/suplier-delete/{id}', [SuplierController::class, 'delete']);
+Route::any('/selectsuplier', [SuplierController::class, 'selectSuplier']);

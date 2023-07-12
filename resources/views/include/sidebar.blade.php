@@ -162,6 +162,22 @@
               </p>
             </a>
           </li>-->
+          <li class="nav-item">
+            <a href="/suply" class="nav-link">
+              <i class=" nav-icon fa-sharp fa-solid fa-cart-shopping"></i>
+              <p>
+                Supply Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/suplier" class="nav-link">
+              <i class=" nav-icon fa-sharp fa-solid fa-user"></i>
+              <p>
+                Supplier
+              </p>
+            </a>
+          </li>
           @hasrole('superadmin')
           <li class="nav-item">
             <a href="/users" class="nav-link">
