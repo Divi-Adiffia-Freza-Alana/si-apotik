@@ -137,6 +137,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="/suply" class="nav-link">
+              <i class=" nav-icon fa-sharp fa-solid fa-cart-shopping"></i>
+              <p>
+                Supply Barang
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/barang" class="nav-link">
               <i class="nav-icon fa-solid fa-box"></i>
               <p>
@@ -145,14 +153,7 @@
             </a>
           </li>
          
-          <li class="nav-item">
-            <a href="/category" class="nav-link">
-              <i class="nav-icon fa-solid fa-list"></i>
-              <p>
-               Category
-              </p>
-            </a>
-          </li>
+        
 
           <!--<li class="nav-item">
             <a href="index.html" class="nav-link">
@@ -162,11 +163,12 @@
               </p>
             </a>
           </li>-->
+
           <li class="nav-item">
-            <a href="/suply" class="nav-link">
-              <i class=" nav-icon fa-sharp fa-solid fa-cart-shopping"></i>
+            <a href="/category" class="nav-link">
+              <i class="nav-icon fa-solid fa-list"></i>
               <p>
-                Supply Barang
+               Category
               </p>
             </a>
           </li>
